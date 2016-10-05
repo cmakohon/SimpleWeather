@@ -1,0 +1,16 @@
+body {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+#mainsub:hover {
+    background-color: darkslategrey;
+    color: white;
+    transition: 0.2s;
+}
+
+#mainsub {
+    transition: 0.2s;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
