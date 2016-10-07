@@ -5,13 +5,17 @@
 /* weather api key: 8a0a3e42b0668a07c7c695c10e0df6aa */
 
 angular.module('app1', ['ngAnimate', 'ngSanitize', 'ui.bootstrap']);
-angular.module('app1').config(function($httpProvider) {
-    //Enable cross domain calls
-    $httpProvider.defaults.useXDomain = true;
+// angular.module('app1').config(function($httpProvider) {
+//     //Enable cross domain calls
+//     $httpProvider.defaults.useXDomain = true;
+//
+//     //Remove the header used to identify ajax call  that would prevent CORS from working
+//     delete $httpProvider.defaults.headers.common['X-Requested-With'];
+//
+// });
 
-    //Remove the header used to identify ajax call  that would prevent CORS from working
-    delete $httpProvider.defaults.headers.common['X-Requested-With'];
-
+angular.module('app1').service(function($sce) {
+    $sce.trustAsResourceUrl("http://autocomplete.wunderground.com/aq");
 });
 angular.module('app1').controller('TypeaheadCtrl', function($scope, $http) {
 
@@ -27,11 +31,10 @@ angular.module('app1').controller('TypeaheadCtrl', function($scope, $http) {
 
     $scope.getLocation = function(val) {
         $scope.asyncSelected = '';
-        return $http.get('http://autocomplete.wunderground.com/aq', {
-            timeout: 5000,
-            headers :{"Content-Type": "application/json", "Access-Control-Allow-Origin":"*"},
+        return $http.jsonp('http://autocomplete.wunderground.com/aq', {
             params: {
-                query: val
+                query: val,
+                cb: 'JSONP' //DOESNT WORK
             }
         }).then(function(response) {
                 $scope.sentence = "SUCCESS";
