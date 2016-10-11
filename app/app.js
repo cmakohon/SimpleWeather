@@ -31,11 +31,28 @@ angular.module('app1').controller('TypeaheadCtrl', function($scope, $http) {
 
     $scope.getLocation = function(val) {
         $scope.asyncSelected = '';
-        return $http.jsonp('http://autocomplete.wunderground.com/aq', {
-            params: {
-                query: val,
-                cb: 'JSONP' //DOESNT WORK
-            }
+        // $.ajax({
+        //     url: "http://autocomplete.wunderground.com/aq",
+        //     dataType: "jsonp",
+        //     data: {
+        //         "query": val,
+        //         "c": "US"
+        //     },
+        //     crossDomain: true,
+        //     complete: function (result, data) {
+        //         $scope.sentence = result;
+        //     }
+        //
+        // });
+
+        // $.get('http://autocomplete.wunderground.com/aq?query=' + val, function(data, status){
+        //     $scope.sentence = "SUCCESS";
+        //     alert("Data: " + data + "\nStatus: " + status);
+        // });
+
+        return $http({
+            method: 'JSONP',
+            url: 'http://autocomplete.wunderground.com/aq?cb=JSONP&c=US&query=' + val
         }).then(function(response) {
                 $scope.sentence = "SUCCESS";
                 // $scope.result = response.data.RESULTS;
@@ -48,11 +65,11 @@ angular.module('app1').controller('TypeaheadCtrl', function($scope, $http) {
                 // $scope.currTemp = (1.8 * ($scope.currTemp - 273)) + 32;
                 // $scope.sentence = 'Current temperature for ' + $scope.zipcity + ' is ' + $scope.currTemp + ' degrees fahrenheit.';
             }, function(response) {
-                $scope.sentence = "FAILURE";
-            $scope.test1 = response.config;
-            $scope.test2 = response.statusText;
-            $scope.test3 = response.headers;
-            $scope.test4 = response.status;
+                $scope.sentence = response;
+                $scope.test1 = response.config;
+                $scope.test2 = response.statusText;
+                $scope.test3 = response.data;
+                $scope.test4 = response.status;
 
             });
     };
