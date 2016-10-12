@@ -18,7 +18,7 @@
     <!--&lt;!&ndash;<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.1.4.js"></script>&ndash;&gt;-->
     <!--<script type="text/javascript" src="app/app.js"></script>-->
 
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDt-ht6qG72qyEiNbaJOiyTLtogZRXj9EQ&libraries=places"></script>-->
 
     <!--<script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=en"></script>-->
@@ -56,18 +56,21 @@
                     <div class='container-fluid' ng-controller="TypeaheadCtrl">
                         <div class="lead">
                             <form class="input-group input-group-lg col-md-8 col-md-offset-2 text-center">
-                                <input type="text" ng-model="asyncSelected" placeholder="city/zip" style="border-radius: 5px" ng-model-options="{ debounce: 300 }"
-                                       uib-typeahead="address for address in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
+                                <input type="text" ng-model="asyncSelected" placeholder="city/zip"
+                                       style="border-radius: 5px" ng-model-options="{ debounce: 300 }"
+                                       uib-typeahead="loc for loc in getLocation($viewValue) | limitTo:5"
+                                       typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
                                 <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
                                 <div ng-show="noResults">
                                     <i class="glyphicon glyphicon-remove"></i> No Results Found
                                 </div>
+                                <div id="results"></div>
                             </form>
                         </div>
-                        <p class="lead">
-                            <a id="mainsub" ng-click="getLocation($viewValue)" href="#" class="btn btn-lg btn-default">submit</a>
-                        </p>
-                        {{sentence}} <br> {{test1}} <br> {{test2}} <br> {{test3}} <br> {{test4}}
+                        <!--<p class="lead">-->
+                            <!--<a id="mainsub" ng-click="getLocation($viewValue)" href="#" class="btn btn-lg btn-default">submit</a>-->
+                        <!--</p>-->
+                        {{sentence}} <br> {{something}}
                     </div>
                 </div>
 

@@ -18,68 +18,93 @@ app.controller('TypeaheadCtrl', function($scope, $http) {
     $scope.test2 = 'wait';
     $scope.test3 = 'wait';
     $scope.test4 = 'wait';
+    $scope.something = [];
 
     $scope.getLocation = function (val) {
         $scope.asyncSelected = '';
+        var autocities = [];
 
-        // $.ajax({
-        //     url: "http://autocomplete.wunderground.com/aq",
-        //     dataType: "jsonp",
-        //     data: {
-        //         "query": val,
-        //         "c": "US"
-        //     },
-        //     crossDomain: true,
-        //     complete: function (result, data) {
-        //         $scope.sentence = result;
-        //     }
-        //
-        // });
-
-        // $.get('http://autocomplete.wunderground.com/aq?query=' + val, function(data, status){
-        //     $scope.sentence = "SUCCESS";
-        //     alert("Data: " + data + "\nStatus: " + status);
-        // });
-
-        return $http({
-            method: 'JSONP',
-            url: 'http://autocomplete.wunderground.com/aq?c=US&cb=JSONP&query=' + val
-        }).then(function(response) {
+        return $.ajax({
+            url: "http://autocomplete.wunderground.com/aq?c=US&query=" + val,
+            dataType: 'jsonp',
+            jsonp: "cb",
+            cache: 'false',
+            success: function(data) {
                 $scope.sentence = "SUCCESS";
-                // $scope.result = response.data.RESULTS;
-                // return $scope.result;
+                // // alert("" + angular.fromJson(data));
+                //
+                // for (i in data.RESULTS) {
+                //     autocities[i] = data.RESULTS[i]['name'];
+                // }
+                //
+                // alert(autocities);
+                // return autocities;
 
-                // $scope.sentence = response;
-                // $window.alert(response);
-                // $scope.result = angular.fromJson(response);
-            }, function(response) {
-                $scope.sentence = response;
-                $scope.test1 = response.config;
-                $scope.test2 = response.statusText;
-                $scope.test3 = response.data;
-                $scope.test4 = response.status;
+                // alert(data.RESULTS.map(function(item){
+                //     return item.name;
+                // }));
+                autocities = data.RESULTS.map(function(item){
+                    return item.name;
+                });
 
-            });
+                $scope.something = autocities;
 
-        // return $http.get('https://maps.googleapis.com/maps/api/place/autocomplete/json', {
-        //     params: {
-        //         input: val,
-        //         types: '(cities)',
-        //         key: 'AIzaSyDt-ht6qG72qyEiNbaJOiyTLtogZRXj9EQ'
-        //     }
-        // }).then(function (response) {
-        //     $scope.sentence = "SUCCESS";
-        //     $scope.test1 = response.config;
-        //     $scope.test2 = response.statusText;
-        //     $scope.test3 = response.data;
-        //     $scope.test4 = response.status;
+                return autocities;
+
+                // alert(autocities.toString());
+
+            },
+            error: function(data) {
+                alert("ERROR: " + data);
+            }
+        });
+
+        // function ajax() {
+        //     return $.ajax({
+        //         url: "http://autocomplete.wunderground.com/aq?c=US&query=" + val,
+        //         dataType: 'jsonp',
+        //         jsonp: "cb",
+        //         cache: 'false'});
+        // }
         //
-        // }, function (response) {
-        //     $scope.sentence = "ERROR";
-        //     $scope.test1 = response.config;
-        //     $scope.test2 = response.statusText;
-        //     $scope.test3 = response.data;
-        //     $scope.test4 = response.status;
+        // return ajax().done(function(data) {
+        //     $scope.sentence = "SUCCESS";
+        //     autocities = data.RESULTS.map(function(item){
+        //         return item.name;
+        //     });
+        // }).fail(function() {
+        //     // An error occurred
         // });
     };
+
+    // $scope.getLocation = function(val) {
+    //     return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
+    //         params: {
+    //             address: val,
+    //             sensor: false
+    //         }
+    //     }).then(function(response){
+    //         alert(response.data.results.map(function(item){
+    //             return item.formatted_address;}));
+    //         return response.data.results.map(function(item){
+    //             return item.formatted_address;
+    //         });
+    //     });
+    // };
+
+    // $scope.getLocation = function(val) {
+    //     return $http.jsonp('http://autocomplete.wunderground.com/aq', {
+    //         dataType: 'jsonp',
+    //         jsonp: "cb",
+    //         params: {
+    //             query: val,
+    //             c: 'US'
+    //         }
+    //     }).then(function(response){
+    //         $scope.sentence = "SUCCESS";
+    //         return response.data.RESULTS.map(function(item){
+    //             return item.name;
+    //         });
+    //     });
+    // };
 });
