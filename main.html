@@ -60,17 +60,16 @@
                                        style="border-radius: 5px" ng-model-options="{ debounce: 300 }"
                                        uib-typeahead="loc for loc in getLocation($viewValue) | limitTo:5"
                                        typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
-                                <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-                                <div ng-show="noResults">
-                                    <i class="glyphicon glyphicon-remove"></i> No Results Found
-                                </div>
-                                <div id="results"></div>
+                                <!--<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>-->
+                                <!--<div ng-show="noResults">-->
+                                    <!--<i class="glyphicon glyphicon-remove"></i> No Results Found-->
+                                <!--</div>-->
                             </form>
                         </div>
                         <!--<p class="lead">-->
                             <!--<a id="mainsub" ng-click="getLocation($viewValue)" href="#" class="btn btn-lg btn-default">submit</a>-->
                         <!--</p>-->
-                        {{sentence}} <br> {{something}}
+                        <!--{{sentence}} <br> {{something}}-->
                     </div>
                 </div>
 

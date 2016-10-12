@@ -16,3 +16,9 @@ body {
     padding-bottom: 5px;
 
 }
+
+.dropdown-menu{
+    width: -moz-calc(100%);
+    width: -webkit-calc(100%);
+    width: calc(100%);
+}
