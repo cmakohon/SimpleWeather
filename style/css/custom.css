@@ -1,7 +1,52 @@
+html, body {
+    background: deepskyblue; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(-90deg, deepskyblue, springgreen); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(-90deg, deepskyblue, springgreen); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(-90deg, deepskyblue, springgreen); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(-90deg, deepskyblue, springgreen); /* Standard syntax */
+}
+
 body {
     font-family: 'Josefin Sans', sans-serif;
+    background: fixed;
     /*font-family: 'Maven Pro', sans-serif;*/
 
+}
+
+.shift-up {
+    -webkit-transition-duration: 1s; /* Safari */
+    transition-duration: 1s;
+    position: relative;
+    -ms-transform: translate(0px,-200px); /* IE 9 */
+    -webkit-transform: translate(0px,-200px); /* Safari */
+    transform: translate(0px,-200px); /* Standard syntax */
+    -webkit-transition-delay: 0.5s; /* Safari */
+    transition-delay: 0.5s;
+}
+
+.btn {
+    -webkit-transition-duration: 0.3s; /* Safari */
+    transition-duration: 0.3s;
+    background-color: #545454;
+}
+
+.btn:hover, .btn.active:hover {
+    -webkit-transition-duration: 0.3s; /* Safari */
+    transition-duration: 0.3s;
+    background-color: #808080;
+    color: white;
+}
+
+.btn.active {
+    -webkit-transition-duration: 0.3s; /* Safari */
+    transition-duration: 0.3s;
+    background-color: #808080;
+}
+
+button:focus{
+    -webkit-transition-duration: 0.3s; /* Safari */
+    transition-duration: 0.3s;
+    background: #808080;
 }
 
 #mainsub:hover {
@@ -21,4 +66,125 @@ body {
     width: -moz-calc(100%);
     width: -webkit-calc(100%);
     width: calc(100%);
+}
+
+.fadein.ng-hide {
+    opacity: 0;
+}
+
+.fadein.ng-hide-remove,
+.fadein.ng-hide-add {
+    display: block !important;
+}
+
+.fadein.ng-hide-remove {
+    transition: all linear 1000ms;
+    -webkit-transition-delay: 1.5s; /* Safari */
+    transition-delay: 1.5s;
+}
+
+.fadein.ng-hide-add {
+    transition: all linear 500ms;
+}
+
+/*----*/
+
+.forecast-container.ng-hide {
+    opacity: 0;
+}
+
+.forecast-container.ng-hide-remove,
+.forecast-container.ng-hide-add {
+    display: block !important;
+}
+
+.forecast-container.ng-hide-remove {
+    transition: all linear 300ms;
+    -webkit-transition-delay: 0.3s; /* Safari */
+    transition-delay: 0.3s;
+}
+
+.forecast-container.ng-hide-add {
+    transition: all linear 300ms;
+}
+
+/*----*/
+
+.fadein {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+
+}
+
+.forecast-container {
+     position: absolute;
+     border-style: solid;
+     border-width: 0px;
+     border-radius: 5px;
+     border-color: rgba(84, 84, 84, 0.5);
+     background-color: rgba(84, 84, 84, 0.5);
+     width: 100%;
+     height: 40vh;
+     margin-left: auto;
+     margin-right: auto;
+ }
+
+.blackbox {
+    margin-top: 20px;
+    position: absolute;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    border-color: rgba(84, 84, 84, 0.5);
+    background-color: rgba(84, 84, 84, 0.5);
+    width: 100%;
+    height: 40vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.three-day, .hourly, .seven-day {
+    border-style: solid;
+    border-width: thin;
+    border-color: rgba(84, 84, 84, 0.5);
+    height: 100%;
+}
+
+.seven-cols {
+    height: 100%;
+}
+
+@media (min-width: 768px){
+    .seven-cols .col-md-1,
+    .seven-cols .col-sm-1,
+    .seven-cols .col-lg-1  {
+        width: 100%;
+        *width: 100%;
+    }
+}
+
+@media (min-width: 992px) {
+    .seven-cols .col-md-1,
+    .seven-cols .col-sm-1,
+    .seven-cols .col-lg-1 {
+        width: 14.285714285714285714285714285714%;
+        *width: 14.285714285714285714285714285714%;
+    }
+}
+
+/**
+ *  The following is not really needed in this case
+ *  Only to demonstrate the usage of @media for large screens
+ */
+@media (min-width: 1200px) {
+    .seven-cols .col-md-1,
+    .seven-cols .col-sm-1,
+    .seven-cols .col-lg-1 {
+        width: 14.285714285714285714285714285714%;
+        *width: 14.285714285714285714285714285714%;
+    }
 }

@@ -30,7 +30,7 @@
     <script src="app/app.js"></script>
 
 </head>
-<body ng-app="app1">
+<body ng-app="app1" ng-cloak>
 
     <div class="site-wrapper">
 
@@ -51,26 +51,100 @@
                     </div>
                 </div>
 
-                <div class="inner cover">
-                    <h1 class="cover-heading" style="font-weight: 100; font-size: 68px">simpleweather.io</h1>
-                    <div class='container-fluid' ng-controller="TypeaheadCtrl">
-                        <div class="lead">
-                            <form class="input-group input-group-lg col-md-8 col-md-offset-2 text-center">
-                                <input type="text" ng-model="asyncSelected" placeholder="city/zip"
-                                       style="border-radius: 5px" ng-model-options="{ debounce: 300 }"
-                                       uib-typeahead="loc for loc in getLocation($viewValue) | limitTo:5"
-                                       typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
-                                <!--<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>-->
-                                <!--<div ng-show="noResults">-->
-                                    <!--<i class="glyphicon glyphicon-remove"></i> No Results Found-->
-                                <!--</div>-->
-                            </form>
-                        </div>
-                        <!--<p class="lead">-->
+                <div class="inner cover" ng-controller="MainCtrl">
+                    <div ng-class="shift_up">
+                        <h1 class="cover-heading" style="font-weight: 100; font-size: 68px">simpleweather.io</h1>
+                        <div class='container-fluid'>
+                            <div class="lead">
+                                <form class="input-group input-group-lg col-md-8 col-md-offset-2 text-center">
+                                    <input type="text" ng-model="selected" placeholder="city/zip"
+                                           style="border-radius: 5px" ng-model-options="{ debounce: 300 }"
+                                           uib-typeahead="loc.name for loc in getLocation($viewValue)"
+                                           typeahead-loading="loadingLocations" typeahead-no-results="noResults"
+                                           typeahead-on-select="loadWeather($item)" typeahead-editable="false" class="form-control">
+                                </form>
+                            </div>
+                            <!--<p class="lead">-->
                             <!--<a id="mainsub" ng-click="getLocation($viewValue)" href="#" class="btn btn-lg btn-default">submit</a>-->
-                        <!--</p>-->
-                        <!--{{sentence}} <br> {{something}}-->
+                            <!--</p>-->
+
+                        </div>
+
+                        <div class="fadein" ng-show="show_forecast">
+                            <div class="btn-group">
+                                <label class="btn" ng-click="checkSpan(radioModel)" ng-model="radioModel" uib-btn-radio="'Hourly'" uncheckable>Hourly</label>
+                                <label class="btn" ng-click="checkSpan(radioModel)" ng-class="presel" ng-model="radioModel" uib-btn-radio="'3 Day'" uncheckable>3 Day</label>
+                                <label class="btn" ng-click="checkSpan(radioModel)" ng-model="radioModel" uib-btn-radio="'7 Day'" uib-uncheckable="uncheckable">7 Day</label>
+                            </div>
+
+                            <div class="blackbox">
+                                <div class="forecast-container" ng-show="hourly">
+                                    <div class="col-md-1 hourly">
+                                        1
+                                    </div>
+                                    <div class="col-md-1 hourly">
+                                        2
+                                    </div>
+                                    <div class="col-md-1 hourly">
+                                        3
+                                    </div>
+                                    <div class="col-md-1 hourly">
+                                        4
+                                    </div>
+                                    <div class="col-md-1 hourly">
+                                        5
+                                    </div>
+                                    <div class="col-md-1 hourly">
+                                        6
+                                    </div>
+                                    <div class="col-md-1 hourly">
+                                        7
+                                    </div>
+                                    <div class="col-md-1 hourly">
+                                        8
+                                    </div>
+                                    <div class="col-md-1 hourly">
+                                        9
+                                    </div>
+                                    <div class="col-md-1 hourly">
+                                        10
+                                    </div>
+                                    <div class="col-md-1 hourly">
+                                        11
+                                    </div>
+                                    <div class="col-md-1 hourly">
+                                        12
+                                    </div>
+                                </div>
+
+                                <div class="forecast-container" ng-show="three_day">
+                                    <div class="col-md-4 three-day">
+                                        1
+                                    </div>
+                                    <div class="col-md-4 three-day">
+                                        2
+                                    </div>
+                                    <div class="col-md-4 three-day">
+                                        3
+                                    </div>
+                                </div>
+
+                                <div class="forecast-container" ng-show="seven_day">
+                                    <div class="seven-cols">
+                                        <div class="col-md-1 seven-day">1</div>
+                                        <div class="col-md-1 seven-day">2</div>
+                                        <div class="col-md-1 seven-day">3</div>
+                                        <div class="col-md-1 seven-day">4</div>
+                                        <div class="col-md-1 seven-day">5</div>
+                                        <div class="col-md-1 seven-day">6</div>
+                                        <div class="col-md-1 seven-day">7</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+
                 </div>
 
                 <div class="mastfoot">

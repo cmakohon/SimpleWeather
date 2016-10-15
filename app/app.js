@@ -7,68 +7,18 @@
 
 var app = angular.module('app1', ['ngAnimate', 'ngSanitize', 'ui.bootstrap']);
 
-app.controller('TypeaheadCtrl', function($scope, $http) {
+app.controller('MainCtrl', function($scope, $http) {
 
     $scope.zipcity = '';
-    $scope.sentence = "WAITING FOR INPUT";
     $scope.auto_results = 0;
-    $scope.result = '';
+    $scope.zmw = '';
     $scope.something = [];
-
-    // $scope.getLocation = function (val) {
-    //     $scope.asyncSelected = '';
-    //     var autocities = [];
-    //
-    //     return $.ajax({
-    //         url: "http://autocomplete.wunderground.com/aq?c=US&query=" + val,
-    //         dataType: 'jsonp',
-    //         jsonp: "cb",
-    //         cache: 'false',
-    //         success: function(data) {
-    //             $scope.sentence = "SUCCESS";
-    //             // // alert("" + angular.fromJson(data));
-    //             //
-    //             // for (i in data.RESULTS) {
-    //             //     autocities[i] = data.RESULTS[i]['name'];
-    //             // }
-    //             //
-    //             // alert(autocities);
-    //             // return autocities;
-    //
-    //             // alert(data.RESULTS.map(function(item){
-    //             //     return item.name;
-    //             // }));
-    //             autocities = data.RESULTS.map(function(item){
-    //                 return item.name;
-    //             });
-    //
-    //             $scope.something = autocities;
-    //
-    //             return autocities;
-    //
-    //             // alert(autocities.toString());
-    //
-    //         },
-    //         error: function(data) {
-    //             alert("ERROR: " + data);
-    //         }
-    //     });
-    // };
-
-    // $scope.getLocation = function(val) {
-    //     return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
-    //         params: {
-    //             address: val,
-    //             sensor: false
-    //         }
-    //     }).then(function(response){
-    //         alert(response.data.results.map(function(item){
-    //             return item.formatted_address;}));
-    //         return response.data.results.map(function(item){
-    //             return item.formatted_address;
-    //         });
-    //     });
-    // };
+    $scope.selected = '';
+    $scope.show_forecast = false;
+    $scope.shift_up = '';
+    $scope.hourly = false;
+    $scope.three_day = true;
+    $scope.seven_day = false;
 
     $scope.getLocation = function(val) {
         var url = "http://autocomplete.wunderground.com/aq?c=US&cb=JSON_CALLBACK&query=" + val;
@@ -77,26 +27,40 @@ app.controller('TypeaheadCtrl', function($scope, $http) {
         then(function(response) {
             // this callback will be called asynchronously
             // when the response is available
-            $scope.sentence = "SUCCESS";
 
             for (i in response.data.RESULTS) {
                 if(i < 5) {
-                    autocities[i] = response.data.RESULTS[i]['name'];
+                    autocities[i] = response.data.RESULTS[i];
                 }
             }
 
             return autocities;
 
-            // return response.data.RESULTS.map(function(item){
-            //     return item.name;
-            // });
-
-            // $scope.something = autocities;
-            // console.log(data.RESULTS);
-            //
-            // return autocities;
-
         });
+    };
+
+    $scope.loadWeather = function(val) {
+        $scope.zmw = val.zmw;
+        $scope.shift_up = 'shift-up';
+        $scope.show_forecast = true;
+        $scope.presel = 'active';
+    };
+
+    $scope.checkSpan = function(val) {
+        if(val == 'Hourly') {
+            $scope.hourly = true;
+            $scope.three_day = false;
+            $scope.seven_day = false;
+        } else if(val == '3 Day') {
+            $scope.hourly = false;
+            $scope.three_day = true;
+            $scope.seven_day = false;
+        } else if(val == '7 Day') {
+            $scope.hourly = false;
+            $scope.three_day = false;
+            $scope.seven_day = true;
+        }
+        $scope.apply();
     };
 
 });
