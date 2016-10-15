@@ -4,6 +4,8 @@ html, body {
     background: -o-linear-gradient(-90deg, deepskyblue, springgreen); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(-90deg, deepskyblue, springgreen); /* For Firefox 3.6 to 15 */
     background: linear-gradient(-90deg, deepskyblue, springgreen); /* Standard syntax */
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 body {
@@ -187,4 +189,28 @@ button:focus{
         width: 14.285714285714285714285714285714%;
         *width: 14.285714285714285714285714285714%;
     }
+}
+
+.coltext {
+    padding-top: 3vh;
+}
+
+.divtop {
+    padding-top: 1vh;
+}
+
+.curr-temp {
+    font-size: 68px;
+    font-weight: 100;
+    text-align: center;
+    vertical-align: middle;
+    /*line-height: 35vh;*/
+}
+
+.curr-temp-hourly {
+    font-size: 46px;
+    font-weight: 100;
+    text-align: center;
+    vertical-align: middle;
+    /*line-height: 35vh;*/
 }

@@ -19,6 +19,15 @@ app.controller('MainCtrl', function($scope, $http) {
     $scope.hourly = false;
     $scope.three_day = true;
     $scope.seven_day = false;
+    $scope.day_one_high3 = '';
+    $scope.day_two_high3 = '';
+    $scope.day_three_high3 = '';
+    $scope.day_one_low3 = '';
+    $scope.day_two_low3 = '';
+    $scope.day_three_low3 = '';
+    $scope.day_one_date3 = '';
+    $scope.day_two_date3 = '';
+    $scope.day_three_date3 = '';
 
     $scope.getLocation = function(val) {
         var url = "http://autocomplete.wunderground.com/aq?c=US&cb=JSON_CALLBACK&query=" + val;
@@ -39,11 +48,30 @@ app.controller('MainCtrl', function($scope, $http) {
         });
     };
 
+    $scope.getThreeDay = function (val) {
+        var url = "http://api.wunderground.com/api/710f6454a7c060eb/forecast/q/zmw:" + val + ".json";
+        $http.get(url).then(function(response) {
+            $scope.day_one_high3 = response.data.forecast.simpleforecast.forecastday[0].high.fahrenheit;
+            $scope.day_two_high3 = response.data.forecast.simpleforecast.forecastday[1].high.fahrenheit;
+            $scope.day_three_high3 = response.data.forecast.simpleforecast.forecastday[2].high.fahrenheit;
+            $scope.day_one_low3 = response.data.forecast.simpleforecast.forecastday[0].low.fahrenheit;
+            $scope.day_two_low3 = response.data.forecast.simpleforecast.forecastday[1].low.fahrenheit;
+            $scope.day_three_low3 = response.data.forecast.simpleforecast.forecastday[2].low.fahrenheit;
+            $scope.day_one_date3 = response.data.forecast.simpleforecast.forecastday[0].date.pretty;
+            $scope.day_two_date3 = response.data.forecast.simpleforecast.forecastday[1].date.pretty;
+            $scope.day_three_date3 = response.data.forecast.simpleforecast.forecastday[2].date.pretty;
+            $scope.apply();
+        }, function(error) {
+            alert("ERROR");
+        });
+    };
+
     $scope.loadWeather = function(val) {
         $scope.zmw = val.zmw;
         $scope.shift_up = 'shift-up';
         $scope.show_forecast = true;
         $scope.presel = 'active';
+        $scope.getThreeDay($scope.zmw);
     };
 
     $scope.checkSpan = function(val) {
